@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> -->
+    <title>Estoure As Bolhas</title>
+</head>
+<body>
+
+<style>
+    body{
+        font-family: Arial, verdana, tahoma, sans-serif;
+        margin: 0%;
+    }
+    .centro{
+        background-color: #ff0000;
+        width: 100%;
+        height: 50px;
+        position: absolute;
+        bottom: 0px;
+    }
+    button{
+        line-height: 25px;
+        margin-top: 8.2px;
+        margin-left: 45%;
+        float: left;
+        text-decoration: none;
+    }
+    .r{
+       float: right ;
+       background-color: #ddd;
+       height: 50px;
+       text-align: center;
+      font-size: 20px 
+    }
+    .bola{
+        width: 50px;
+        height: 50px;
+        border-radius: 25px;
+        position: absolute;
+    }
+</style>
+    
+    <div class="centro">
+        <div class="r">
+            Bolhas Estouras<br>
+            <span id="placar" >0</span>
+        </div>
+        <button class="comecar">Começar o Jogo</button>
+    </div>
+    
+    
+    <script src="../js/jquery/jquery-3.4.1.js"></script>
+    
+    <script>
+        function addBola(){
+            var x = Math.floor(Math.random()*800);
+            var y = Math.floor(Math.random()*500);
+            var cor = Math.floor(Math.random()*4);
+
+            var bola = $('<div class="bola"</div>');
+            bola.css('left', x+'px');
+            bola.css('top', y+'px');
+            
+            switch(cor){
+                case 0:
+                    bola.css('background-color', 'blue');
+                    break;
+                case 1:
+                    bola.css('background-color', 'green');
+                    break;
+                case 2:
+                    bola.css('background-color', 'yellow');
+                    break;
+                case 3:
+                    bola.css('background-color', 'grey');
+                    break;
+                case 4:
+                    bola.css('background-color', 'orange');
+                    break;
+            }
+
+            bola.on('click', function(){
+                $(this).fadeOut('fast');
+                placar++;
+                updatePlacar();
+            });
+
+            // $('<div class="bola"</div>').appendTo(document.body);
+            $(document.body).append(bola);
+        }
+        function updatePlacar(){
+            $('#placar').html(placar);
+        }
+        var placar = 0;
+        $(".comecar").click(function(){
+            setInterval(addBola, 1000);
+        });
+    </script>
+
+</body>
+</html>

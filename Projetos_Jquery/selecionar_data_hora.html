@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <title>Selecionar Data/Hora</title>
+</head>
+<body>
+
+<style>
+.horaescolher{
+    width: 100px;
+    height: 100px;
+    padding:2.5px 1.7%;
+    background-color: #999;
+    color: #fff;
+    position:absolute;
+    display: none;
+}
+</style>
+
+    <div class="container">
+        <div class="row">
+            <div class="input-field">
+                <input type="text" id="hora1" name="hora1" class="validate">
+                <label id="lbl_hora1" for="hora1">Hora 1</label>
+            </div>
+            
+            <div class="input-field">
+                <input type="text" id="hora2" name="hora2" class="validate">
+                <label id="lbl_hora2" for="hora2">Hora 2</label>
+            </div>
+            
+            <div class="input-field">
+                <input type="text" id="hora3" name="hora3" class="validate">
+                <label id="lbl_hora3" for="hora3">Hora 3</label>
+            </div>
+            
+            <div class="input-field">
+                <input type="text" id="hora4" name="hora4" class="validate">
+                <label id="lbl_hora4" for="hora4">Hora 4</label>
+            </div>
+
+            <div class="horaescolher">
+                <button>10:00</button>
+                <button>11:00</button>
+                <button>12:00</button>
+                <button>13:00</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="../js/jquery/jquery-3.4.1.js"></script>
+    
+    <script>
+        $(function(){
+            var change;
+
+            $("input").focus(function(){
+                var pos = $(this).offset();
+                var width = $(this).width();
+                
+                $('.horaescolher').css('left', pos.left+width);
+                $('.horaescolher').css('top', pos.top);
+                $('.horaescolher').show();
+
+                change = $(this);
+            });          
+            
+            $("input").blur(function(){
+                setTimeout(function(){
+                    $(".horaescolher").hide();
+                }, 200)
+            });
+
+            $('.horaescolher button').click(function(){
+                var hora = $(this).html();
+                change.val(hora);
+            });
+
+            $("#hora1").focus(function(){
+                $("#lbl_hora1").addClass("active");
+            });
+            $("#hora1").blur(function(){
+                if($("#hora1").val() == ""){
+                    $("#lbl_hora1").removeClass("active");
+                }
+            });
+            
+        });
+
+
+    </script>
+
+</body>
+</html>

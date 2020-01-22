@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> -->
+    <title>Menu Apple</title>
+</head>
+<body>
+
+<style>
+    body{
+        font-family: Arial, verdana, tahoma, sans-serif;
+        margin: 0%;
+    }
+    .menu{
+        background-color: #ddd;
+        width: 800px;
+        height: 70px;
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        margin-left: -400px;
+        opacity: 0.6;
+    }
+    .icones{
+        width: 70px;
+        height: 70px;
+        background-color: #ccc;
+        float: left;
+        margin-right: 10px;
+        cursor: pointer;
+    }
+    .centro{
+        width: 680px;
+        height: 70px;
+        margin-left: 85px;
+        position: absolute;
+        float: left;
+    }
+</style>
+    
+    <div class="menu">
+        <div class="centro">
+            <div class="icones">
+            </div>
+            <div class="icones">
+            </div>
+            <div class="icones">
+            </div>
+            <div class="icones">
+            </div>
+            <div class="icones">
+            </div>
+            <div class="icones">
+            </div>
+            <div class="icones">
+            </div>
+            <div class="icones">
+            </div>
+        </div>
+    </div>
+
+    
+    
+    <script src="../js/jquery/jquery-3.4.1.js"></script>
+    
+    <script>
+        $(".icones").hover(function(){
+            $(this).animate({
+                'width': 100,
+                'height': 100,
+                'margin-top': -30
+            }, 250);
+            
+        }, function(){
+            $(this).animate({
+                'width': 70,
+                'height': 70,
+                'margin-top': 0
+
+            }, 250);
+        });
+    </script>
+
+</body>
+</html>
