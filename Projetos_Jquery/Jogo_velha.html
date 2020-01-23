@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> -->
+    <title>Jogo da Velha</title>
+</head>
+<body>
+
+<style>
+    body{
+        font-family: Arial, verdana, tahoma, sans-serif;
+        margin: 0%;
+    }
+    .box{
+        /* background-color:black; */
+        width: 40px;
+        height: 40px;
+        border: 2px solid #000;
+    }
+    .bordar-cima{
+        border-top: 2px solid blanchedalmond;
+    }
+    .bordar-baixo{
+        border-bottom:2px solid blanchedalmond;
+    }
+    .bordar-esquerda{
+        border-left:2px solid blanchedalmond;
+    }
+    .bordar-direita{
+        border-right:2px solid blanchedalmond;
+    }
+    .a1{
+        position: fixed;
+        margin-left: 2%;
+        margin-top: 10%;
+        padding: 0%;
+        text-align: center;
+        line-height: 40px;
+    }
+    .a2{
+        position: fixed;
+        margin-left: 5.2%;
+        margin-top: 10%;
+        padding: 0%;
+        text-align: center;
+        line-height: 40px;
+    }
+    .a3{
+        position: fixed;
+        margin-left: 8.4%;
+        margin-top: 10%;
+        padding: 0%;
+        text-align: center;
+        line-height: 40px;
+    }
+    .b1{
+        position: fixed;
+        margin-left: 2%;
+        margin-top: 13.2%;
+        padding: 0%;
+        text-align: center;
+        line-height: 40px;
+    }
+    .b2{
+        position: fixed;
+        margin-left: 5.2%;
+        margin-top: 13.2%;
+        padding: 0%;
+        text-align: center;
+        line-height: 40px;
+    }
+    .b3{
+        position: fixed;
+        margin-left: 8.4%;
+        margin-top: 13.2%;
+        padding: 0%;
+        text-align: center;
+        line-height: 40px;
+    }
+    .c1{
+        position: fixed;
+        margin-left: 2%;
+        margin-top: 16.3%;
+        padding: 0%;
+        text-align: center;
+        line-height: 40px;
+    }
+    .c2{
+        position: fixed;
+        margin-left: 5.2%;
+        margin-top: 16.3%;
+        padding: 0%;
+        text-align: center;
+        line-height: 40px;
+    }
+    .c3{
+        position: fixed;
+        margin-left: 8.4%;
+        margin-top: 16.3%;
+        padding: 0%;
+        text-align: center;
+        line-height: 40px;
+    }
+    .colorX{
+        color: #ff0000;
+    }
+    .colorO{
+        color: blue;
+    }
+    .jogador{
+        font-weight: bold;
+    }
+    .suavez{
+        position: absolute;
+        margin-top: 7%;
+        margin-left: 2%
+    }
+</style>
+    <div class="suavez"><span>É a vez de: <span class="jogador"></span> </span></div>
+    
+    <div class="box a1 bordar-esquerda bordar-cima" id-marcador=""> 
+        <span class=""></span> 
+    </div>
+    
+    <div class="box a2 bordar-cima" id-marcador=""> 
+        <span class=""></span>
+    </div>
+    
+    <div class="box a3 bordar-cima bordar-direita" id-marcador=""> 
+        <span class=""></span>
+    </div>
+    
+    <div class="box b1 bordar-esquerda" id-marcador="">
+        <span class=""></span>
+    </div>
+    
+    <div class="box b2" id-marcador="">
+        <span class=""></span>
+    </div>
+    
+    <div class="box b3 bordar-direita" id-marcador="">
+        <span class=""></span>
+    </div>
+    
+    <div class="box c1 bordar-esquerda bordar-baixo" id-marcador="">
+        <span class=""></span>
+    </div>
+    
+    <div class="box c2 bordar-baixo" id-marcador="">
+        <span class=""></span>
+    </div>
+
+    <div class="box c3 bordar-direita bordar-baixo" id-marcador="">
+        <span class=""></span>
+    </div>
+    
+    <script src="../js/jquery/jquery-3.4.1.js"></script>
+    
+    <script>
+        var vez = 'o';
+
+        function atualizarPlacar(){
+            if(vez == 'o'){
+                $('.jogador').html("O").addClass('colorO');
+            }else{
+                $('.jogador').removeClass('colorO');
+                $('.jogador').html("X").addClass('colorX')
+            }
+        }
+        function VerificarGanhador(){
+            var a1 = $('.a1').attr('id-marcador');
+            var a2 = $('.a2').attr('id-marcador');
+            var a3 = $('.a3').attr('id-marcador');
+            
+            var b1 = $('.b1').attr('id-marcador');
+            var b2 = $('.b2').attr('id-marcador');
+            var b3 = $('.b3').attr('id-marcador');
+            
+            var c1 = $('.c1').attr('id-marcador');
+            var c2 = $('.c2').attr('id-marcador');
+            var c3 = $('.c3').attr('id-marcador');
+
+            var ganhador = '';
+
+            for(var i = 0; i <= 1; i++){
+                if(i == 0){
+                    var op = 'O';
+                }else{
+                    var op = 'X';
+                }
+                
+                //Verificando Verticalmente
+                if(a1 == op && b1 == op && c1 == op){
+                    ganhador = op;
+                }
+                
+                else if(a2 == op && b2 == op && c2 == op){
+                    ganhador = op;
+                }
+                
+                else if(a3 == op && b3 == op && c3 == op){
+                    ganhador = op;
+                }
+                
+                //verificando Horizontalmente
+                else if(a1 == op && a2 == op && a3 == op){
+                    ganhador = op;
+                }
+                
+                else if(b1 == op && b2 == op && b3 == op){
+                    ganhador = op;
+                }
+                
+                else if(c1 == op && c2 == op && c3 == op){
+                    ganhador = op;
+                }
+
+                //verificando Diagonalmente
+                else if(a1 == op && b2 == op && c3 == op){
+                    ganhador = op;
+                }
+                
+                else if(a3 == op && b2 == op && c1 == op){
+                    ganhador = op;
+                }
+            }//fim do for
+            if(ganhador != ''){
+                if(ganhador == 'O'){
+                    alert("O ganhador foi: O ");
+                }else{
+                    alert("O ganhador foi: X ");
+                }
+                location.reload();
+            }
+            else if(a1 != '' && a2 != '' && a3 != '' && b1 != '' && b2 != '' && b3 != '' && c1 != '' && c2 != '' && c3 != ''){
+                alert("DEU VELHA !!!")
+                location.reload();           }
+        }
+
+        $(document).ready(function(){
+            
+            atualizarPlacar();
+
+            $(".box").click(function(){
+                
+                if($(this).find('span').html().length == ""){
+                    if(vez == 'o'){
+                        $(this).html("O").addClass('colorO');
+                        $(this).attr('id-marcador', "O")
+                        vez = 'x';
+                    }else{
+                        $(this).removeClass('colorO');
+                        $(this).html("X").addClass('colorX');
+                        $(this).attr('id-marcador', "X");
+                        vez = 'o';
+                    }
+                    atualizarPlacar();
+                    VerificarGanhador();
+                }
+            });
+
+        });//fim do ready
+    </script>
+
+</body>
+</html>
