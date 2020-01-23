@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <title>Buscador</title>
+</head>
+<body>
+
+<style type="text/css">
+.row1{
+    width: 500px;
+    background-color: #ddd;
+    height: 200px;
+    float: left;
+    position: absolute;
+    left: 50%;
+    margin-left: -250px;
+    margin-top: 8%;
+    text-align: center;
+    line-height: 190px;
+    border-radius: 100px;
+    opacity: 0.6;
+    display: none;
+}
+.font-n{
+    font-weight: bold;
+}
+</style>
+
+<div class="container">
+    <p>Buscar <strong>Clima</strong></p>
+    <form class="col s12">
+        <div class="row">
+            
+            <div class="input-field col s12">
+                <input type="text" name="cidade" id="cidade" class="validate">
+                <label id="lbl_cidade" for="cidade" >Cidade</label>
+            </div>
+            <div class="row1">
+                <span class="font-n res">VAI APARECER AQUI O RESULTADO DA BUSCA !</span>
+            </div>
+        </div>
+        
+        <div class="row">
+            <button class="btn btn-sm buscar-clima" >Buscar</button>
+        </div>
+    </form>
+</div>    
+    <script src="../js/jquery/jquery-3.4.1.js"></script>
+    
+    <script>
+        //Ativar e Desativar Label !
+        $(function(){
+            $("#cidade").focus(function(){
+                $("#lbl_cidade").addClass("active");
+            });
+            
+            $("#cidade").blur(function(){
+                if($("#cidade").val() == ""){
+                    $("#lbl_cidade").removeClass("active");
+                };
+            });
+            
+        });
+
+        $(function(){
+            $("form").submit(function(e){
+                e.preventDefault();
+            
+                $(".buscar-clima").click(function(){
+                    var cidade = $("#cidade").val();
+
+                    var now = new Date();
+
+                    var tempURL = 'https://query.yahooapis.com/v1/public/yql?format=json&rnd=' + now.getFullYear() + now.getMonth() + now.getDay() + now.getHours() + '&diagnostics=true&callback=?&q=';
+                    tempURL += 'select * from weather.forecast where woeid in (select woeid from geo.places(1) where text="'+cidade+'") and u="c"';
+                
+                    $.ajax({
+                        url: encodeURI(tempURL),
+                        dataType: 'json',
+                        type: 'GET',
+                        beforeSend: function(){
+                            $('.row1').fadeIn('fast');
+                        },
+                        success: function(data){
+                            if(data !== null && data.query !== null && data.query.results !== null && data.query.results.channel.description !== 'Yahoo! Weather Error'){
+                                
+                                var temp = data.query.results.channel.item.condition.temp;
+                                
+                                $(".res").html(temp+'° C');
+                            }//fim do if
+                        },//fim do success
+                        error:function(){
+                            $(".res").html("Nenhuma resposta, tente mais tarde !")
+                        }
+                    });
+                });
+            });
+        });
+
+    </script>
+
+</body>
+</html>
